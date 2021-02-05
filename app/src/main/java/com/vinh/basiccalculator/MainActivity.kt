@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
         // Xóa toàn bộ nội dung
         btnClear.setOnClickListener {
-            edExpression.text.clear()
+            tvExpression.text = ""
         }
 
         // Chỉ xóa 1 kí tự sau cùng
@@ -50,14 +50,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         // Tính toán giá trị biểu thức
         btnCalculate.setOnClickListener {
             try {
-                calculator.expression = edExpression.text.toString()
+                calculator.expression = tvExpression.text.toString()
                 var result: Double = calculator.calculate()
 
                 // Kiểm tra kết quả trả về có phải là số nguyên hay không
                 // Ví dụ result = 5.0 thì ta sẽ hiển thị là 5 cho gọn
                 var i: Long = result.toLong()
-                if (i.toDouble() == result) edExpression.setText(i.toString())
-                else edExpression.setText(result.toString())
+                if (i.toDouble() == result) tvResult.text = i.toString()
+                else tvResult.text = result.toString()
             } catch (e: InvalidExpressionException) {
                 Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
             }
@@ -66,19 +66,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    // thêm s vào cuối nội dung của edExpression
+    // thêm s vào cuối nội dung của tvExpression
     private fun appendToExpression(s: String) {
-        edExpression.text.append(s);
+        tvExpression.text = tvExpression.text.toString() + s
     }
 
     // Xóa kí tự cuối của edExpression
     private fun deleteLast() {
-        if (edExpression.text.isNotEmpty()) {
-            edExpression.setText(
-                edExpression.text.toString().substring(0, edExpression.text.length - 1)
-            )
-
-            edExpression.text.append("")
+        if (tvExpression.text.isNotEmpty()) {
+            tvExpression.text =
+                tvExpression.text.toString().substring(0, tvExpression.text.length - 1)
         }
     }
 
@@ -92,6 +89,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     /*
     Hàm này kiểm tra đầu và thực hiện 1 số thay đổi đầu vào cho hợp lý thôi :)))
+    Các bạn có thể thêm vào 1 số điều kiện cho phù hợp nếu muốn
      */
     private fun checkInput(op: Char) {
         if (op !in calculator.operator) {
@@ -99,14 +97,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             return
         }
 
-        if (edExpression.text.isEmpty()) {
-            if (op == '(' || op == '-') appendToExpression(op.toString())
+        if (tvExpression.text.isEmpty()) {
+            if (op == '(') appendToExpression(op.toString())
         } else {
-            var last: Char = edExpression.text[edExpression.text.length - 1]
-            if (last in listOf('+', '-', '*', '/', '.')) {
-                edExpression.setText(
-                    edExpression.text.toString().substring(0, edExpression.text.length - 1) + op
-                )
+            var last: Char = tvExpression.text[tvExpression.text.length - 1]
+            if (last in listOf('+', '-', '*', '/', '.') && op != '(') {
+                tvExpression.text =
+                    tvExpression.text.toString().substring(0, tvExpression.text.length - 1) + op
+
             } else {
                 appendToExpression(op.toString())
             }

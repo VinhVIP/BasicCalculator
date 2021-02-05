@@ -1,5 +1,6 @@
 package com.vinh.basiccalculator
 
+import android.util.Log
 import java.util.*
 
 /*
@@ -11,6 +12,16 @@ class Calculator(var expression: String) {
     var stk: Stack<Char> = Stack() // Stack dùng cho quá trình chuyển biểu thức infix -> postfix
 
     val operator: List<Char> = listOf('(', ')', '+', '-', '*', '/')
+
+    /*
+    Chuyển số âm thành phép tính trừ
+    VD: -6 = 0-6
+     */
+    private fun adjust(s: String): String {
+        var a: String = s
+        a = a.replace("(-", "(0-");
+        return a
+    }
 
     /*
     Định dạng lại biểu thức bằng cách thêm các dấu cách xung quanh mỗi toán tử
@@ -80,7 +91,9 @@ class Calculator(var expression: String) {
     fun toPostfix(): String {
 
         // Định dạng lại chuỗi biểu thức (trung tố) cho dễ đọc
-        var infix: String = refine(expression) + " "
+        var infix: String = refine(adjust(expression)) + " "
+
+        Log.d("AAA", infix)
 
         var s: String = ""  // Chuỗi trung gian
         var postfix: String = ""  // Lưu trữ giá trị chuỗi hậu tố
@@ -154,7 +167,7 @@ class Calculator(var expression: String) {
         } catch (e: DivideZeroException) {
             throw InvalidExpressionException("Không thể chia cho 0")
         } catch (e: Exception) {
-            throw InvalidExpressionException("Biểu thức nhập sai định dạng hoặc chia cho 0")
+            throw InvalidExpressionException("Biểu thức nhập sai định dạng")
         }
     }
 

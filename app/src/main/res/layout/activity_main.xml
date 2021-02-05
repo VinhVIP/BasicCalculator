@@ -6,14 +6,34 @@
     android:background="#FBFBFB"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/edExpression"
+    <TextView
+        android:id="@+id/tvExpression"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="bottom|end"
-        android:cursorVisible="false"
-        android:lines="3"
+        android:gravity="bottom|left"
+        android:lines="4"
+        android:padding="4dp"
         android:text=""
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/tvExpression"
+        android:background="?android:attr/listDivider" />
+
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/divider"
+        android:gravity="end"
+        android:lines="1"
+        android:padding="4dp"
+        android:text=""
+        android:textColor="@color/purple_500"
         android:textSize="20sp" />
 
     <include
@@ -22,5 +42,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="0dp" />
+
 
 </RelativeLayout>
