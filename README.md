@@ -11,4 +11,4 @@ Trong code mình có áp dụng các kiến thức về biểu thức trung tô 
 
 Bạn có thể tham khảo project app máy tính khác đơn giản hơn khi chỉ tính phép tính đơn: https://github.com/VinhVIP/Calculator
 
-![](https://github.com/VinhVIP/BasicCalculator/blob/master/demo_basic_calculator.png)
+![](https://github.com/VinhVIP/BasicCalculator/blob/master/app/src/main/res/drawable-v24/demo.png)
